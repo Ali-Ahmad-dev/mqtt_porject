@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1092304138493",
+    "project_id": "mqtt-project-7320f",
+    "storage_bucket": "mqtt-project-7320f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1092304138493:android:1c72d58769f479f5124e94",
+        "android_client_info": {
+          "package_name": "com.example.mqtt_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1092304138493-qbph2hedvm59e367h9r1e7jur9tegnqt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyByWb8R0sBH0eCZYBK7fes_-CL5X_1zuSI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1092304138493-qbph2hedvm59e367h9r1e7jur9tegnqt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
