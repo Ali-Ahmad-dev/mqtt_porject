@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'color.dart';
 
@@ -11,8 +12,9 @@ class status extends StatefulWidget {
 }
 
 class _statusState extends State<status> {
-  String dropdownvalue = 'Manual';
-  var items = ['Manual', 'Auto', 'Radar', 'Step by step'];
+  bool togglebtn = false;
+  String dropdownvalue = 'manual';
+  var items = ['manual', 'auto', 'redar', 'step by step'];
   bool tog = false;
   toogle() {
     setState(() {
@@ -28,21 +30,12 @@ class _statusState extends State<status> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.only(bottom: 20, top: 10),
-            child: Text(
-              'Connection Status ',
-              style: GoogleFonts.ubuntu(
-                textStyle: TextStyle(color: color().TextColor, fontSize: 18),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 20, top: 5),
+            padding: const EdgeInsets.only(left: 20, top: 53),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                  width: 145,
+                  width: 155,
                   padding: EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     color: color().appBackGroundColor,
@@ -58,8 +51,8 @@ class _statusState extends State<status> {
                   child: Center(
                     child: InkWell(
                       onTap: toogle,
-                      child: Text(
-                        tog == true ? 'Connected' : 'Disconnected',
+                      child: LocaleText(
+                        tog == true ? 'connect' : 'disconnect',
                         style: GoogleFonts.ubuntu(
                           textStyle: TextStyle(
                               color:
@@ -82,9 +75,9 @@ class _statusState extends State<status> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 40),
-            child: Text(
-              'Select Category ',
+            padding: const EdgeInsets.only(top: 30),
+            child: LocaleText(
+              'select category',
               style: GoogleFonts.ubuntu(
                 textStyle:
                     TextStyle(color: color().headingTextColor, fontSize: 18),
@@ -92,7 +85,7 @@ class _statusState extends State<status> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
+            padding: const EdgeInsets.only(top: 10, left: 20, right: 0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -101,11 +94,11 @@ class _statusState extends State<status> {
                   items: items.map((String items) {
                     return DropdownMenuItem(
                       value: items,
-                      child: Text(
+                      child: LocaleText(
                         items,
                         style: GoogleFonts.ubuntu(
                           textStyle:
-                              TextStyle(color: Colors.white, fontSize: 20),
+                              TextStyle(color: Colors.white, fontSize: 18),
                         ),
                       ),
                     );
@@ -123,16 +116,19 @@ class _statusState extends State<status> {
                   onPressed: () {},
                   child: Row(
                     children: [
-                      Text(
-                        ' Send  ',
+                      LocaleText(
+                        'send',
                         style: GoogleFonts.ubuntu(
                           textStyle:
                               TextStyle(color: Colors.white70, fontSize: 19),
                         ),
                       ),
-                      Icon(
-                        Icons.send,
-                        color: color().greenAccent,
+                      Padding(
+                        padding: const EdgeInsets.only(left: 5),
+                        child: Icon(
+                          Icons.send,
+                          color: color().greenAccent,
+                        ),
                       ),
                     ],
                   ),
@@ -149,19 +145,18 @@ class _statusState extends State<status> {
           ),
           Padding(
             padding: const EdgeInsets.only(top: 40),
-            child: Text(
-              'Mode Feedback',
+            child: LocaleText(
+              'mode feedback',
               style: GoogleFonts.ubuntu(
-                textStyle:
-                    TextStyle(color: color().headingTextColor, fontSize: 18),
+                textStyle: TextStyle(color: color().TextColor, fontSize: 18),
               ),
             ),
           ),
           Center(
             child: Padding(
               padding: const EdgeInsets.only(top: 20),
-              child: Text(
-                'Feedback from Mqtt',
+              child: LocaleText(
+                'feedback from mqtt',
                 style: GoogleFonts.ubuntu(
                   textStyle: TextStyle(color: Colors.white, fontSize: 21),
                 ),
@@ -170,19 +165,18 @@ class _statusState extends State<status> {
           ),
           Padding(
             padding: const EdgeInsets.only(top: 40),
-            child: Text(
-              'Status Feedback',
+            child: LocaleText(
+              'status feedback',
               style: GoogleFonts.ubuntu(
-                textStyle:
-                    TextStyle(color: color().headingTextColor, fontSize: 18),
+                textStyle: TextStyle(color: color().TextColor, fontSize: 18),
               ),
             ),
           ),
           Center(
             child: Padding(
               padding: const EdgeInsets.only(top: 20),
-              child: Text(
-                'Status feedback Mqtt',
+              child: LocaleText(
+                'status feedback mqtt',
                 style: GoogleFonts.ubuntu(
                   textStyle: TextStyle(color: Colors.white, fontSize: 21),
                 ),
@@ -191,73 +185,87 @@ class _statusState extends State<status> {
           ),
           Padding(
             padding: const EdgeInsets.only(
-              top: 30,
+              top: 73,
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                OutlinedButton(
+                RawMaterialButton(
+                  splashColor: color().TextColor,
+                  fillColor: color().backgroundColor,
+                  shape: CircleBorder(),
                   onPressed: () {},
-                  child: Icon(
-                    Icons.keyboard_arrow_left_sharp,
-                    color: Colors.amber.shade900,
-                    size: 59,
+                  child: Container(
+                    padding:
+                        EdgeInsets.only(right: 9, left: 6, top: 9, bottom: 9),
+                    width: 55,
+                    child: Image(
+                      image: AssetImage('assets/arrowLeft.png'),
+                    ),
                   ),
-                  style: OutlinedButton.styleFrom(
-                    backgroundColor: color().backgroundColor,
-                    shape: CircleBorder(),
-                    elevation: 3,
-                  ),
+                  padding: EdgeInsets.all(10),
+                  elevation: 5,
                 ),
-                OutlinedButton(
+                RawMaterialButton(
+                  shape: CircleBorder(),
+                  splashColor: color().TextColor,
+                  fillColor: color().greenAccent,
                   onPressed: () {},
                   child: Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Text(
-                      'Auto',
+                    padding: const EdgeInsets.all(23.0),
+                    child: LocaleText(
+                      'auto1',
                       style: GoogleFonts.ubuntu(
                         textStyle: TextStyle(color: Colors.white, fontSize: 21),
                       ),
                     ),
                   ),
-                  style: OutlinedButton.styleFrom(
-                    backgroundColor: color().backgroundColor,
-                    shape: CircleBorder(),
-                    elevation: 3,
-                  ),
                 ),
-                OutlinedButton(
+                RawMaterialButton(
+                  splashColor: color().TextColor,
+                  fillColor: color().backgroundColor,
+                  shape: CircleBorder(),
                   onPressed: () {},
-                  child: Icon(
-                    Icons.keyboard_arrow_right_sharp,
-                    color: Colors.amber.shade900,
-                    size: 59,
+                  child: Container(
+                    padding:
+                        EdgeInsets.only(right: 6, left: 9, top: 9, bottom: 9),
+                    width: 55,
+                    child: Image(
+                      image: AssetImage('assets/arrowRight.png'),
+                    ),
                   ),
-                  style: OutlinedButton.styleFrom(
-                    backgroundColor: color().backgroundColor,
-                    shape: CircleBorder(),
-                    elevation: 3,
-                  ),
+                  padding: EdgeInsets.all(10),
+                  elevation: 5,
                 ),
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 20),
-            child: Center(
-              child: OutlinedButton(
-                onPressed: () {},
-                child: Icon(
-                  Icons.power_settings_new,
-                  color: color().TextColor,
-                  size: 59,
+          Center(
+            child: Container(
+              width: 100,
+              height: 100,
+              margin: EdgeInsets.only(top: 22),
+              child: RawMaterialButton(
+                padding: EdgeInsets.only(left: 2.9, bottom: 3),
+                splashColor: color().amberAccent,
+                fillColor: Colors.red.shade800,
+                onPressed: () {
+                  setState(() {
+                    togglebtn = !togglebtn;
+                  });
+                },
+                shape: CircleBorder(),
+                child: Center(
+                  child: Image(
+                    width: 70,
+                    color:
+                        togglebtn == true ? color().greenAccent : Colors.white,
+                    image: AssetImage(
+                      'assets/recycle.png',
+                    ),
+                  ),
                 ),
-                style: OutlinedButton.styleFrom(
-                  padding: EdgeInsets.all(20),
-                  backgroundColor: color().backgroundColor,
-                  shape: CircleBorder(),
-                  elevation: 5,
-                ),
+                elevation: 5,
               ),
             ),
           ),

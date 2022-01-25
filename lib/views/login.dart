@@ -1,42 +1,66 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mqtt_project/Services/firebaseServices.dart';
+import 'package:mqtt_project/views/home.dart';
+import '';
 import 'package:mqtt_project/views/register.dart';
 import 'color.dart';
 
-class login extends StatefulWidget {
+class login_1 extends StatefulWidget {
   @override
-  loginState createState() => loginState();
+  _login_1State createState() => _login_1State();
 }
 
-class loginState extends State<login> {
-  bool _isObscure = true;
-
+class _login_1State extends State<login_1> {
   final emailController = TextEditingController();
   final passController = TextEditingController();
 
-  //bool validate = false;
+  bool _isObscure = true;
+  String dropdownvalue = ' LANGUAGE';
+  //  LocaleNotifier.of(context)?.change('en'),
+  //   LocaleNotifier.of(context)?.change('fr');
+  //   LocaleNotifier.of(context)?.change('it');
+
+  bool tog = false;
+  toogle() {
+    setState(() {
+      tog = !tog;
+    });
+  }
+
+  // List<Item> users = <Item>[
+  //   Item(
+  //     'ENGLISH',
+  //     Image.asset('icons/flags/png/gb.png', package: 'country_icons'),
+  //   ),
+  //   Item(
+  //     'FRENCH',
+  //     Image.asset('icons/flags/png/fr.png', package: 'country_icons'),
+  //   ),
+  //   Item(
+  //     'ITALIAN',
+  //     Image.asset('icons/flags/png/it.png', package: 'country_icons'),
+  //   ),
+  // ];
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return SingleChildScrollView(
       child: Container(
+        height: MediaQuery.of(context).size.height,
         padding: EdgeInsets.only(left: 15, right: 15, top: 110),
         decoration: BoxDecoration(
-          // ignore: prefer_const_constructors
           color: color().appBackGroundColor,
         ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          crossAxisAlignment: CrossAxisAlignment.end,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Center(
-              child: Text(
-                //
-                'Login here',
+              child: LocaleText(
+                'signin',
                 style: GoogleFonts.ubuntu(
                   textStyle: TextStyle(
                     fontSize: 40,
@@ -57,43 +81,63 @@ class loginState extends State<login> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
+                        padding: EdgeInsets.only(top: 30),
+                        child: LocaleText(
+                          'enterusername',
+                          style: GoogleFonts.ubuntu(
+                            textStyle: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w400,
+                                decoration: TextDecoration.none,
+                                color: Colors.white60),
+                          ),
+                        ),
+                      ),
+                      Container(
                         padding: EdgeInsets.only(bottom: 15),
                         child: TextField(
-                          controller: emailController,
                           decoration: InputDecoration(
-                              // errorText:
-                              //     validate ? 'Email Can\'t Be Empty' : null,
-                              fillColor: Colors.transparent,
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: color().TextColor,
-                                ),
-                                borderRadius: BorderRadius.circular(50),
-                              ),
-                              focusedBorder: OutlineInputBorder(
+                              // errorText: validate
+                              //     ? 'Username Can\'t Be Empty'
+                              //     : null,
+                              enabledBorder: UnderlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.white70)),
+                              focusedBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
-                                    color: color().amberAccent,
-                                  ),
-                                  borderRadius: BorderRadius.circular(50)),
+                                color: color().amberAccent,
+                              )),
+                              fillColor: Colors.transparent,
                               filled: true,
-                              hintText: 'Enter username',
+                              hintText: 'Robert Wilson',
                               hintStyle: GoogleFonts.ubuntu(
                                 textStyle: TextStyle(
-                                  fontSize: 17,
+                                  fontSize: 14,
                                   fontWeight: FontWeight.w400,
-                                  color: color().TextColor,
+                                  color: Colors.white,
                                 ),
                               ),
                               suffixIcon: IconButton(
                                   icon: Icon(
                                     Icons.person,
-                                    color: color().TextColor,
+                                    color: Colors.white54,
                                   ),
                                   onPressed: () {})),
-                          style: TextStyle(
-                            color: color().TextColor,
+                          style: TextStyle(color: Colors.white),
+                          cursorColor: Colors.white24,
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(top: 30),
+                        child: LocaleText(
+                          'password',
+                          style: GoogleFonts.ubuntu(
+                            textStyle: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w400,
+                                decoration: TextDecoration.none,
+                                color: Colors.white60),
                           ),
-                          cursorColor: color().TextColor,
                         ),
                       ),
                       TextField(
@@ -102,43 +146,34 @@ class loginState extends State<login> {
                         decoration: InputDecoration(
                             // errorText:
                             //     validate ? 'Password Can\'t Be Empty' : null,
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: color().TextColor,
-                              ),
-                              borderRadius: BorderRadius.circular(50),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: color().amberAccent,
-                              ),
-                              borderRadius: BorderRadius.circular(50),
-                            ),
-                            hintText: '***********',
+                            enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.white70)),
+                            focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                              color: color().amberAccent,
+                            )),
+                            hintText: '************',
                             hintStyle: GoogleFonts.ubuntu(
-                              textStyle: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w400,
-                                color: color().TextColor,
-                              ),
-                            ),
+                                textStyle: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.white,
+                            )),
                             filled: true,
                             suffixIcon: IconButton(
                                 icon: Icon(
                                   _isObscure
                                       ? Icons.visibility
                                       : Icons.visibility_off,
-                                  color: color().TextColor,
+                                  color: Colors.white60,
                                 ),
                                 onPressed: () {
                                   setState(() {
                                     _isObscure = !_isObscure;
                                   });
                                 })),
-                        style: TextStyle(
-                          color: color().TextColor,
-                        ),
-                        cursorColor: color().TextColor,
+                        style: TextStyle(color: Colors.white54),
+                        cursorColor: Colors.white24,
                       ),
                     ],
                   ),
@@ -147,11 +182,135 @@ class loginState extends State<login> {
                   padding: const EdgeInsets.only(left: 20),
                   child: TextButton(
                     onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => register()));
+                      showGeneralDialog(
+                        context: context,
+                        barrierColor: Colors.black54,
+                        barrierLabel: '',
+                        barrierDismissible: true,
+                        pageBuilder: (_, __, ___) {
+                          return Padding(
+                            padding: const EdgeInsets.only(top: 40, right: 15),
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: SizedBox(
+                                height: 300,
+                                width: MediaQuery.of(context).size.width - 50,
+                                child: Card(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  color: color().backgroundColor,
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 30, right: 20, bottom: 30),
+                                        child: Text(
+                                          'Please enter your email address\nto reset password! ',
+                                          textAlign: TextAlign.start,
+                                          style: GoogleFonts.ubuntu(
+                                              textStyle: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w400,
+                                            color: color().amberAccent,
+                                          )),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 20, right: 20, bottom: 50),
+                                        child: TextField(
+                                          controller: passController,
+                                          decoration: InputDecoration(
+                                              // errorText:
+                                              //     validate ? 'Password Can\'t Be Empty' : null,
+                                              enabledBorder:
+                                                  UnderlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                          color:
+                                                              Colors.white70)),
+                                              focusedBorder:
+                                                  UnderlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                color: color().amberAccent,
+                                              )),
+                                              hintText: 'Enter Email',
+                                              hintStyle: GoogleFonts.ubuntu(
+                                                  textStyle: TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w400,
+                                                color: Colors.white,
+                                              )),
+                                              filled: true,
+                                              suffixIcon: IconButton(
+                                                  icon: Icon(
+                                                    Icons.email,
+                                                    color: Colors.white60,
+                                                  ),
+                                                  onPressed: () {
+                                                    setState(() {
+                                                      _isObscure = !_isObscure;
+                                                    });
+                                                  })),
+                                          style:
+                                              TextStyle(color: Colors.white54),
+                                          cursorColor: Colors.white24,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: SizedBox(
+                                          width: 120,
+                                          child: OutlinedButton(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                LocaleText(
+                                                  'send',
+                                                  style: GoogleFonts.ubuntu(
+                                                    textStyle: TextStyle(
+                                                        color: color()
+                                                            .appBackGroundColor,
+                                                        fontSize: 19),
+                                                  ),
+                                                ),
+                                                Icon(
+                                                  Icons.send,
+                                                  color: color()
+                                                      .appBackGroundColor,
+                                                ),
+                                              ],
+                                            ),
+                                            style: OutlinedButton.styleFrom(
+                                                backgroundColor:
+                                                    color().amberAccent,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(22),
+                                                ),
+                                                elevation: 3,
+                                                padding: EdgeInsets.all(10)),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      );
                     },
-                    child: Text(
-                      "Forget Password?",
+                    child: LocaleText(
+                      "forgotpassword",
                       style: GoogleFonts.ubuntu(
                         textStyle: TextStyle(
                           fontSize: 13,
@@ -180,19 +339,21 @@ class loginState extends State<login> {
                       //       ? validate = true
                       //       : validate = false;
                       // });
-                      // await firebaseServices().userlogin(
+                      // await firebaseServices().userlogin_1(
                       //     context, emailController.text, passController.text);
 
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => register()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => homeScreen()));
                     },
-                    child: Text(
-                      'Login',
+                    child: LocaleText(
+                      'login',
                       style: GoogleFonts.ubuntu(
                           textStyle: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w400,
-                        color: color().TextColor,
+                        color: color().amberAccent,
                       )),
                     ),
                     style: TextButton.styleFrom(
@@ -206,10 +367,102 @@ class loginState extends State<login> {
                   ),
                 ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          LocaleNotifier.of(context)?.change('en');
+                        });
+                      },
+                      child: Column(
+                        children: [
+                          Container(
+                            height: 45,
+                            width: 80,
+                            padding: EdgeInsets.all(10),
+                            child: Image.asset('icons/flags/png/gb.png',
+                                package: 'country_icons'),
+                          ),
+                          Text(
+                            'ENG',
+                            style: GoogleFonts.ubuntu(
+                              textStyle: TextStyle(
+                                fontSize: 13,
+                                fontWeight: FontWeight.w400,
+                                decoration: TextDecoration.none,
+                                color: color().TextColor,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          LocaleNotifier.of(context)?.change('fr');
+                        });
+                      },
+                      child: Column(
+                        children: [
+                          Container(
+                            height: 50,
+                            width: 90,
+                            padding: EdgeInsets.all(10),
+                            child: Image.asset('icons/flags/png/fr.png',
+                                package: 'country_icons'),
+                          ),
+                          Text(
+                            'FRA',
+                            style: GoogleFonts.ubuntu(
+                              textStyle: TextStyle(
+                                fontSize: 13,
+                                fontWeight: FontWeight.w400,
+                                decoration: TextDecoration.none,
+                                color: color().TextColor,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          LocaleNotifier.of(context)?.change('it');
+                        });
+                      },
+                      child: Column(
+                        children: [
+                          Container(
+                            height: 50,
+                            width: 90,
+                            padding: EdgeInsets.all(10),
+                            child: Image.asset('icons/flags/png/it.png',
+                                package: 'country_icons'),
+                          ),
+                          Text(
+                            'ITA',
+                            style: GoogleFonts.ubuntu(
+                              textStyle: TextStyle(
+                                fontSize: 13,
+                                fontWeight: FontWeight.w400,
+                                decoration: TextDecoration.none,
+                                color: color().TextColor,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      'Dont Have An Account?',
+                    LocaleText(
+                      'donthaveanaccount',
                       style: GoogleFonts.ubuntu(
                         textStyle: TextStyle(
                           fontSize: 13,
@@ -226,8 +479,8 @@ class loginState extends State<login> {
                             MaterialPageRoute(
                                 builder: (context) => register()));
                       },
-                      child: Text(
-                        "Register!",
+                      child: LocaleText(
+                        "register",
                         style: GoogleFonts.ubuntu(
                           textStyle: TextStyle(
                             fontSize: 13,
@@ -248,3 +501,180 @@ class loginState extends State<login> {
     );
   }
 }
+
+
+//  Container(
+//               width: 150,
+//               height: 50,
+//               decoration: BoxDecoration(
+//                 borderRadius: BorderRadius.circular(30),
+//                 boxShadow: [
+//                   BoxShadow(
+//                     color: Colors.black38,
+//                     offset: Offset(1.0, 1), //(x,y)
+//                     blurRadius: 6.0,
+//                   ),
+//                 ],
+//                 color: color().amberAccent,
+//                 shape: BoxShape.rectangle,
+//               ),
+//               child: TextButton(
+//                 child: Row(
+//                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                   children: [
+//                     Text(
+//                       dropdownvalue,
+//                       style: GoogleFonts.ubuntu(
+//                         textStyle: TextStyle(
+//                           fontSize: 18,
+//                           fontWeight: FontWeight.w500,
+//                           decoration: TextDecoration.none,
+//                           color: color().appBackGroundColor,
+//                         ),
+//                       ),
+//                     ),
+//                     Icon(
+//                       Icons.arrow_drop_down,
+//                       color: color().appBackGroundColor,
+//                     ),
+//                   ],
+//                 ),
+//                 onPressed: () {
+//                   showGeneralDialog(
+//                     context: context,
+//                     barrierColor: Colors.black54,
+//                     barrierDismissible: true,
+//                     barrierLabel: 'Label',
+//                     pageBuilder: (_, __, ___) {
+//                       return Padding(
+//                         padding: const EdgeInsets.only(top: 40, right: 15),
+//                         child: Align(
+//                           alignment: Alignment.topRight,
+//                           child: Container(
+//                               width: 180,
+//                               height: 200,
+//                               decoration: BoxDecoration(
+//                                   color: color().appBackGroundColor,
+//                                   borderRadius: BorderRadius.circular(22)),
+//                               child: Column(
+//                                 children: [
+//                                   Padding(
+//                                     padding:
+//                                         const EdgeInsets.only(left: 25, top: 5),
+//                                     child: GestureDetector(
+//                                       onTap: () {
+//                                         setState(() {
+//                                           LocaleNotifier.of(context)
+//                                               ?.change('en');
+//                                           Navigator.pop(context);
+//                                           dropdownvalue = ' ENGLISH';
+//                                         });
+//                                       },
+//                                       child: Row(
+//                                         children: [
+//                                           Text(
+//                                             'ENGLISH',
+//                                             style: GoogleFonts.ubuntu(
+//                                               textStyle: TextStyle(
+//                                                 fontSize: 16,
+//                                                 fontWeight: FontWeight.w400,
+//                                                 decoration: TextDecoration.none,
+//                                                 color: color().TextColor,
+//                                               ),
+//                                             ),
+//                                           ),
+//                                           Container(
+//                                               padding:
+//                                                   EdgeInsets.only(left: 17),
+//                                               height: 50,
+//                                               width: 50,
+//                                               child: Image.asset(
+//                                                   'icons/flags/png/gb.png',
+//                                                   package: 'country_icons')),
+//                                         ],
+//                                       ),
+//                                     ),
+//                                   ),
+//                                   Padding(
+//                                     padding:
+//                                         const EdgeInsets.only(left: 25, top: 5),
+//                                     child: GestureDetector(
+//                                       onTap: () {
+//                                         setState(() {
+//                                           LocaleNotifier.of(context)
+//                                               ?.change('fr');
+//                                           Navigator.pop(context);
+//                                           dropdownvalue = ' FRENCH';
+//                                         });
+//                                       },
+//                                       child: Row(
+//                                         children: [
+//                                           Text(
+//                                             'FRENCH',
+//                                             style: GoogleFonts.ubuntu(
+//                                               textStyle: TextStyle(
+//                                                 fontSize: 16,
+//                                                 fontWeight: FontWeight.w400,
+//                                                 decoration: TextDecoration.none,
+//                                                 color: color().TextColor,
+//                                               ),
+//                                             ),
+//                                           ),
+//                                           Container(
+//                                               padding:
+//                                                   EdgeInsets.only(left: 17),
+//                                               height: 50,
+//                                               width: 50,
+//                                               child: Image.asset(
+//                                                   'icons/flags/png/fr.png',
+//                                                   package: 'country_icons')),
+//                                         ],
+//                                       ),
+//                                     ),
+//                                   ),
+//                                   Padding(
+//                                     padding:
+//                                         const EdgeInsets.only(left: 25, top: 5),
+//                                     child: GestureDetector(
+//                                       onTap: () {
+//                                         setState(() {
+//                                           LocaleNotifier.of(context)
+//                                               ?.change('it');
+//                                           Navigator.pop(context);
+//                                           dropdownvalue = ' ITALIAN';
+//                                         });
+//                                       },
+//                                       child: Row(
+//                                         children: [
+//                                           Text(
+//                                             'ITALIAN',
+//                                             style: GoogleFonts.ubuntu(
+//                                               textStyle: TextStyle(
+//                                                 fontSize: 16,
+//                                                 fontWeight: FontWeight.w400,
+//                                                 decoration: TextDecoration.none,
+//                                                 color: color().TextColor,
+//                                               ),
+//                                             ),
+//                                           ),
+//                                           Container(
+//                                               padding:
+//                                                   EdgeInsets.only(left: 17),
+//                                               height: 50,
+//                                               width: 50,
+//                                               child: Image.asset(
+//                                                   'icons/flags/png/it.png',
+//                                                   package: 'country_icons')),
+//                                         ],
+//                                       ),
+//                                     ),
+//                                   ),
+//                                 ],
+//                               )),
+//                         ),
+//                       );
+//                     },
+//                   );
+//                 },
+//               ),
+//             ),

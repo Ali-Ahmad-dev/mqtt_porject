@@ -1,13 +1,12 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mqtt_project/Services/firebaseServices.dart';
 import 'package:mqtt_project/views/home.dart';
-import 'color.dart';
 import 'package:mqtt_project/views/login.dart';
+import 'color.dart';
 
 class register extends StatefulWidget {
-  @override
   registerState createState() => registerState();
 }
 
@@ -23,7 +22,7 @@ class registerState extends State<register> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: true,
+      //  resizeToAvoidBottomInset: true,
       body: SingleChildScrollView(
         child: Container(
           height: MediaQuery.of(context).size.height,
@@ -36,9 +35,8 @@ class registerState extends State<register> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Text(
-                //
-                'Register Here!',
+              LocaleText(
+                'register',
                 style: GoogleFonts.ubuntu(
                   textStyle: TextStyle(
                       fontSize: 30,
@@ -58,8 +56,8 @@ class registerState extends State<register> {
                       children: [
                         Container(
                           padding: EdgeInsets.only(top: 30),
-                          child: Text(
-                            'USERNAME',
+                          child: LocaleText(
+                            'enterusername',
                             style: GoogleFonts.ubuntu(
                               textStyle: TextStyle(
                                   fontSize: 15,
@@ -104,7 +102,7 @@ class registerState extends State<register> {
                             cursorColor: Colors.white24,
                           ),
                         ),
-                        Text(
+                        LocaleText(
                           'email',
                           style: GoogleFonts.ubuntu(
                             textStyle: TextStyle(
@@ -147,7 +145,50 @@ class registerState extends State<register> {
                             cursorColor: Colors.white24,
                           ),
                         ),
-                        Text(
+                        LocaleText(
+                          'serial number',
+                          style: GoogleFonts.ubuntu(
+                            textStyle: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w400,
+                                decoration: TextDecoration.none,
+                                color: Colors.white60),
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(bottom: 15),
+                          child: TextField(
+                            controller: phoneController,
+                            decoration: InputDecoration(
+                                errorText:
+                                    validate ? 'Phone Can\'t Be Empty' : null,
+                                enabledBorder: UnderlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: Colors.white70)),
+                                focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                  color: color().amberAccent,
+                                )),
+                                fillColor: Colors.transparent,
+                                filled: true,
+                                hintText: '1234567',
+                                hintStyle: GoogleFonts.ubuntu(
+                                    textStyle: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.white,
+                                )),
+                                suffixIcon: IconButton(
+                                    icon: Icon(
+                                      Icons.phone,
+                                      color: Colors.white54,
+                                    ),
+                                    onPressed: () {})),
+                            style: TextStyle(color: Colors.white),
+                            cursorColor: Colors.white24,
+                          ),
+                        ),
+                        LocaleText(
                           'phone',
                           style: GoogleFonts.ubuntu(
                             textStyle: TextStyle(
@@ -190,8 +231,8 @@ class registerState extends State<register> {
                             cursorColor: Colors.white24,
                           ),
                         ),
-                        Text(
-                          'PASSWORD',
+                        LocaleText(
+                          'password',
                           style: GoogleFonts.ubuntu(
                             textStyle: TextStyle(
                                 fontSize: 15,
@@ -280,8 +321,8 @@ class registerState extends State<register> {
                             MaterialPageRoute(
                                 builder: (context) => homeScreen()));
                       },
-                      child: Text(
-                        'Register',
+                      child: LocaleText(
+                        'register',
                         style: GoogleFonts.ubuntu(
                           textStyle: TextStyle(
                               fontSize: 21,
@@ -302,8 +343,8 @@ class registerState extends State<register> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        'Already have An Account?',
+                      LocaleText(
+                        'alreadyhaveanaccount',
                         style: GoogleFonts.ubuntu(
                           textStyle: TextStyle(
                               fontSize: 13,
@@ -314,11 +355,13 @@ class registerState extends State<register> {
                       ),
                       TextButton(
                         onPressed: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => login()));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => homeScreen()));
                         },
-                        child: Text(
-                          "Login!",
+                        child: LocaleText(
+                          "login",
                           style: GoogleFonts.ubuntu(
                             textStyle: TextStyle(
                                 fontSize: 14,
